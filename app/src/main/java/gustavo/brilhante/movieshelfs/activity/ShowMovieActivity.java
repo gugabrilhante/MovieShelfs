@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
@@ -42,17 +43,27 @@ public class ShowMovieActivity extends AppCompatActivity {
     CircularProgressView progressView;
 
     @Extra
+    boolean justShow = false;
+
+    @Extra
     Movie movie;
 
     Realm realm;
 
+    @ViewById
+    RelativeLayout buttonLayout;
 
 
     @AfterViews
     void afterViews(){
         realm = Realm.getDefaultInstance();
         setViews();
-        requestImage();
+        if(!justShow)requestImage();
+        else if(movie.getImagePoster()!=null && posterButton!=null){
+            posterButton.setBackground(null);
+            posterButton.setImageBitmap(movie.getImagePoster());
+            posterButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        }
     }
 
     void setViews(){
@@ -89,6 +100,8 @@ public class ShowMovieActivity extends AppCompatActivity {
             Awards.setText(movie.getAwards());
             imdbRating.setText(movie.getImdbRating());
             imdbVotes.setText(movie.getImdbVotes());
+
+            if(justShow)buttonLayout.setVisibility(View.GONE);
         }
     }
 

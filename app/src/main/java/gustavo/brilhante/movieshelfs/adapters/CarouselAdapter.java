@@ -16,6 +16,7 @@ import com.synnapps.carouselview.ViewListener;
 import java.util.ArrayList;
 
 import gustavo.brilhante.movieshelfs.R;
+import gustavo.brilhante.movieshelfs.activity.ShowMovieActivity_;
 import gustavo.brilhante.movieshelfs.models.Movie;
 import gustavo.brilhante.movieshelfs.models.MovieList;
 
@@ -85,13 +86,13 @@ public class CarouselAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return new ViewListener() {
             @Override
             public View setViewForPosition(int position) {
-                Movie movie = movieList.getMovies().get(position);
+                final Movie movie = movieList.getMovies().get(position);
 
                 View customView = LayoutInflater.from(context).inflate(R.layout.carousel_item, null);
                 customView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        ShowMovieActivity_.intent(context).movie(movie).justShow(true).start();
                     }
                 });
 
