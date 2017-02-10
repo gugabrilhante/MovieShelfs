@@ -2,6 +2,8 @@ package gustavo.brilhante.movieshelfs.fragments;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -145,12 +147,14 @@ public class SearchFragment extends BaseFragment {
             }else{
                 String resp = response.body().string();
                 setLoading(false);
+                showErrorDialog();
                 //showError();
             }
 
         } catch (IOException e) {
             e.printStackTrace();
             setLoading(false);
+            showErrorDialog();
         }
 
     }
@@ -181,14 +185,14 @@ public class SearchFragment extends BaseFragment {
                 goToSearchList();
             }else{
                 setLoading(false);
-                searchList = gson.fromJson(Constants.searchMock, SearchList.class);
-                goToSearchList();
+                showErrorDialog();
                 //showError();
             }
 
         } catch (IOException e) {
             e.printStackTrace();
             setLoading(false);
+            showErrorDialog();
         }
 
     }
@@ -237,14 +241,14 @@ public class SearchFragment extends BaseFragment {
                 goToShowMovie();
             }else{
                 setLoading(false);
-                movie = gson.fromJson(Constants.serieMock, Movie.class);
-                goToShowMovie();
+                showErrorDialog();
                 //showError();
             }
 
         } catch (IOException e) {
             e.printStackTrace();
             setLoading(false);
+            showErrorDialog();
         }
 
     }
@@ -326,6 +330,19 @@ public class SearchFragment extends BaseFragment {
                 view.setVisibility(View.VISIBLE);
             }
         }).start();
+    }
+
+    @UiThread
+    void showErrorDialog(){
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Error")
+                .setMessage("Erro ao fazer requisição")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
 
 }

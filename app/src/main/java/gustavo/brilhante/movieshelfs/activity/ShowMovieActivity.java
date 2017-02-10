@@ -44,8 +44,6 @@ public class ShowMovieActivity extends AppCompatActivity {
     @Extra
     Movie movie;
 
-
-
     Realm realm;
 
 
@@ -153,21 +151,27 @@ public class ShowMovieActivity extends AppCompatActivity {
 
     @UiThread
     void setBitmapToButton(Bitmap bitmap){
-        movie.setImagePoster(bitmap);
-        posterButton.setBackground(null);
-        posterButton.setImageBitmap(bitmap);
-        posterButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        if(movie!=null)movie.setImagePoster(bitmap);
+        if(posterButton!=null) {
+            posterButton.setBackground(null);
+            posterButton.setImageBitmap(bitmap);
+            posterButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        }
     }
 
     @UiThread
     void setLoading(boolean isLoading){
         if(isLoading && progressView.getVisibility()==View.GONE){
-            progressView.setVisibility(View.VISIBLE);
-            progressView.startAnimation();
+            if(progressView!=null) {
+                progressView.setVisibility(View.VISIBLE);
+                progressView.startAnimation();
+            }
 
         }else if(!isLoading && progressView.getVisibility() == View.VISIBLE){
-            progressView.setVisibility(View.GONE);
-            progressView.stopAnimation();
+            if(progressView!=null) {
+                progressView.setVisibility(View.GONE);
+                progressView.stopAnimation();
+            }
         }
     }
 
