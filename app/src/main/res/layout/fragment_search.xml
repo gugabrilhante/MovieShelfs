@@ -1,0 +1,209 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:id="@+id/rootView"
+    tools:context="gustavo.brilhante.movieshelfs.fragments.SearchFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1">
+
+        </View>
+
+        <TextView
+            android:id="@+id/filmeTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:background="@drawable/box_shape_left"
+            android:text="Filme"/>
+
+        <TextView
+            android:id="@+id/todosTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:background="@drawable/box_shape_middle"
+            android:text="Todos"/>
+
+        <TextView
+            android:id="@+id/serieTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:background="@drawable/box_shape_right"
+            android:text="Série"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1">
+
+        </View>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/filmeLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <gustavo.brilhante.movieshelfs.utils.components.GustavoEditText
+                android:id="@+id/nomeFilmeEditText"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:floatingLabelText="Nome do filme">
+            </gustavo.brilhante.movieshelfs.utils.components.GustavoEditText>
+
+            <gustavo.brilhante.movieshelfs.utils.components.GustavoEditText
+                android:id="@+id/anoLancamentoEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                app:floatingLabelText="Ano de lançamento">
+            </gustavo.brilhante.movieshelfs.utils.components.GustavoEditText>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/todosLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <gustavo.brilhante.movieshelfs.utils.components.GustavoEditText
+                android:id="@+id/nomeEditText"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:floatingLabelText="Título">
+            </gustavo.brilhante.movieshelfs.utils.components.GustavoEditText>
+
+            <gustavo.brilhante.movieshelfs.utils.components.GustavoEditText
+                android:id="@+id/paginaEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                app:floatingLabelText="Página de início">
+            </gustavo.brilhante.movieshelfs.utils.components.GustavoEditText>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/serieLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <gustavo.brilhante.movieshelfs.utils.components.GustavoEditText
+                android:id="@+id/nomeSerieEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:floatingLabelText="Nome da série">
+            </gustavo.brilhante.movieshelfs.utils.components.GustavoEditText>
+
+            <gustavo.brilhante.movieshelfs.utils.components.GustavoEditText
+                android:id="@+id/temporadaEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                app:floatingLabelText="Temporada">
+            </gustavo.brilhante.movieshelfs.utils.components.GustavoEditText>
+
+            <gustavo.brilhante.movieshelfs.utils.components.GustavoEditText
+                android:id="@+id/episodioEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                app:floatingLabelText="Episódio">
+            </gustavo.brilhante.movieshelfs.utils.components.GustavoEditText>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/buttonLayout"
+        android:isScrollContainer="false"
+        android:layout_width="match_parent"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:layout_marginBottom="20dp"
+        android:layout_height="50dp">
+
+        <ImageButton
+            android:id="@+id/searchButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@drawable/shape_button"/>
+
+
+        <com.github.rahatarmanahmed.cpv.CircularProgressView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/progressView"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            app:cpv_color="@color/white"
+            app:cpv_animAutostart="true"
+            app:cpv_indeterminate="true" />
+
+        <TextView
+            android:id="@+id/buscarTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Buscar"
+            android:textSize="22sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+</LinearLayout>
