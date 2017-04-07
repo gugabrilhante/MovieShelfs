@@ -8,9 +8,11 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.google.gson.Gson;
+import com.google.gson.JsonParseException;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -47,6 +49,9 @@ public class SearchListActivity extends AppCompatActivity implements SearchListe
     @ViewById
     ImageButton backwardBtn, fowardBtn;
 
+    @ViewById
+    TextView pageIndexTextView;
+
     SearchAdapter adapter;
 
     @Extra
@@ -63,6 +68,8 @@ public class SearchListActivity extends AppCompatActivity implements SearchListe
     int bitmapCount = 0;
 
     Gson gson;
+
+    boolean isLoadingSpinning = false;
 
 
     @AfterViews
@@ -87,22 +94,27 @@ public class SearchListActivity extends AppCompatActivity implements SearchListe
 
     @Click(R.id.backwardBtn)
     void backwardClick(){
-        if(page>1){
-            page--;
-            makeListRequest();
-            if(page==1)backwardBtn.setVisibility(View.INVISIBLE);
+        if(!isLoadingSpinning) {
+            if (page > 1) {
+                page--;
+                makeListRequest();
+                if (page == 1) backwardBtn.setVisibility(View.INVISIBLE);
+            }
         }
     }
 
     @Click(R.id.fowardBtn)
     void fowardClick(){
-        page++;
-        makeListRequest();
+        if(!isLoadingSpinning) {
+            page++;
+            makeListRequest();
+        }
 
     }
 
     @Background
     void makeListRequest(){
+        setLoading(true);
         String title = this.title;
         String pagina = page+"";
 
@@ -127,8 +139,14 @@ public class SearchListActivity extends AppCompatActivity implements SearchListe
 
             }
 
+        }
+        catch (JsonParseException e) {
+            page--;
+            fowardBtn.setVisibility(View.INVISIBLE);
+            setLoading(false);
         } catch (IOException e) {
             e.printStackTrace();
+            setLoading(false);
         }
 
     }
@@ -137,12 +155,14 @@ public class SearchListActivity extends AppCompatActivity implements SearchListe
     @UiThread
     void setLoading(boolean isLoading){
         if(isLoading && progressView.getVisibility()== View.GONE){
+            isLoadingSpinning = isLoading;
             progressView.setVisibility(View.VISIBLE);
             progressView.startAnimation();
             recyclerView.setVisibility(View.GONE);
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,  WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         }else if(!isLoading && progressView.getVisibility() == View.VISIBLE){
+            isLoadingSpinning = isLoading;
             progressView.setVisibility(View.GONE);
             progressView.stopAnimation();
             recyclerView.setVisibility(View.VISIBLE);
@@ -150,7 +170,7 @@ public class SearchListActivity extends AppCompatActivity implements SearchListe
         }
     }
 
-    @Background
+    @Background(serial = "imageFlow")
     void setImagesRequest(){
         bitmapCount = 0;
         for (int i=0; i<searchList.getSearch().size(); i++){
@@ -158,7 +178,7 @@ public class SearchListActivity extends AppCompatActivity implements SearchListe
         }
     }
 
-    @Background
+    @Background(serial = "imageFlow")
     void requestImage(int index){
 
         String url = searchList.getSearch().get(index).getPoster();
@@ -203,6 +223,8 @@ public class SearchListActivity extends AppCompatActivity implements SearchListe
     void setAdapter(){
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayout.VERTICAL, false));
         recyclerView.setAdapter(adapter);
+        if(page>1)backwardBtn.setVisibility(View.VISIBLE);
+        pageIndexTextView.setText(""+page);
     }
 
     @Background

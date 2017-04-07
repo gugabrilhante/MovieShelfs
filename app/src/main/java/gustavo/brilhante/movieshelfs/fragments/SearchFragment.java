@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.google.gson.Gson;
+import com.google.gson.JsonParseException;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -151,6 +152,9 @@ public class SearchFragment extends BaseFragment {
                 //showError();
             }
 
+        } catch (JsonParseException e){
+            setLoading(false);
+            showErrorDialog();
         } catch (IOException e) {
             e.printStackTrace();
             setLoading(false);
@@ -189,6 +193,9 @@ public class SearchFragment extends BaseFragment {
                 //showError();
             }
 
+        } catch (JsonParseException e){
+            setLoading(false);
+            showErrorDialog();
         } catch (IOException e) {
             e.printStackTrace();
             setLoading(false);
@@ -245,7 +252,12 @@ public class SearchFragment extends BaseFragment {
                 //showError();
             }
 
-        } catch (IOException e) {
+        }
+        catch (JsonParseException e){
+            setLoading(false);
+            showErrorDialog();
+        }
+        catch (IOException e) {
             e.printStackTrace();
             setLoading(false);
             showErrorDialog();
