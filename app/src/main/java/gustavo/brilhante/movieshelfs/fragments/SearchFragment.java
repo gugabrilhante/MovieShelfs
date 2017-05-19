@@ -28,6 +28,7 @@ import gustavo.brilhante.movieshelfs.activity.SearchListActivity_;
 import gustavo.brilhante.movieshelfs.activity.ShowMovieActivity_;
 import gustavo.brilhante.movieshelfs.base.BaseFragment;
 import gustavo.brilhante.movieshelfs.models.Argument;
+import gustavo.brilhante.movieshelfs.models.ErrorMessage;
 import gustavo.brilhante.movieshelfs.models.Movie;
 import gustavo.brilhante.movieshelfs.models.SearchList;
 import gustavo.brilhante.movieshelfs.requests.MakeRequest;
@@ -143,8 +144,14 @@ public class SearchFragment extends BaseFragment {
 
                 movie = gson.fromJson(resp, Movie.class);
 
-                setLoading(false);
-                goToShowMovie();
+                if(movie.getResponse().toLowerCase().equals("false")) {
+                    ErrorMessage error = gson.fromJson(resp, ErrorMessage.class);
+                    showErrorMessage(error.Error);
+                    setLoading(false);
+                }else{
+                    setLoading(false);
+                    goToShowMovie();
+                }
             }else{
                 String resp = response.body().string();
                 setLoading(false);
@@ -185,8 +192,15 @@ public class SearchFragment extends BaseFragment {
 
                 searchList = gson.fromJson(resp, SearchList.class);
 
-                setLoading(false);
-                goToSearchList();
+                if(searchList.getResponse().toLowerCase().equals("false")) {
+                    ErrorMessage error = gson.fromJson(resp, ErrorMessage.class);
+                    showErrorMessage(error.Error);
+                    setLoading(false);
+                }else{
+                    setLoading(false);
+                    goToSearchList();
+                }
+
             }else{
                 setLoading(false);
                 showErrorDialog();
@@ -244,8 +258,15 @@ public class SearchFragment extends BaseFragment {
 
                 movie = gson.fromJson(resp, Movie.class);
 
-                setLoading(false);
-                goToShowMovie();
+                if(movie.getResponse().toLowerCase().equals("false")) {
+                    ErrorMessage error = gson.fromJson(resp, ErrorMessage.class);
+                    showErrorMessage(error.Error);
+                    setLoading(false);
+                }else{
+                    setLoading(false);
+                    goToShowMovie();
+                }
+
             }else{
                 setLoading(false);
                 showErrorDialog();
@@ -349,6 +370,19 @@ public class SearchFragment extends BaseFragment {
         new AlertDialog.Builder(getActivity())
                 .setTitle("Error")
                 .setMessage("Erro ao fazer requisição")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
+
+    @UiThread
+    void showErrorMessage(String message){
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Error")
+                .setMessage(message)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();

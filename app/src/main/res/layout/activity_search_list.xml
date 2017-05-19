@@ -18,6 +18,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:visibility="gone"
+            app:cpv_thickness="8px"
             app:cpv_color="@color/colorPrimary"
             app:cpv_animAutostart="true"
             app:cpv_indeterminate="true" />

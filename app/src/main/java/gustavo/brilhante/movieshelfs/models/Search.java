@@ -14,22 +14,22 @@ import java.io.Serializable;
 public class Search implements Serializable{
     @SerializedName("Title")
     @Expose
-    public String title;
+    public String title = "";
     @SerializedName("Released")
     @Expose
-    public String released;
+    public String released = "";
     @SerializedName("Year")
     @Expose
-    public String year;
+    public String year = "";
     @SerializedName("imdbID")
     @Expose
-    public String imdbID;
+    public String imdbID = "";
     @SerializedName("Type")
     @Expose
-    public String type;
+    public String type = "";
     @SerializedName("Poster")
     @Expose
-    public String poster;
+    public String poster = "";
 
     @Expose(serialize = false, deserialize = true)
     Bitmap bitmap;

@@ -21,73 +21,73 @@ public class Movie extends RealmObject implements Serializable{
 
     @SerializedName("Title")
     @Expose
-    private String title;
+    private String title = "";
     @SerializedName("Year")
     @Expose
-    private String year;
+    private String year = "";
     @SerializedName("Rated")
     @Expose
-    private String rated;
+    private String rated = "";
     @SerializedName("Season")
     @Expose
-    private String season;
+    private String season = "";
     @SerializedName("Episode")
     @Expose
-    private String episode;
+    private String episode = "";
     @SerializedName("Released")
     @Expose
-    private String released;
+    private String released = "";
     @SerializedName("Runtime")
     @Expose
-    private String runtime;
+    private String runtime = "";
     @SerializedName("Genre")
     @Expose
-    private String genre;
+    private String genre = "";
     @SerializedName("Director")
     @Expose
-    private String director;
+    private String director = "";
     @SerializedName("Writer")
     @Expose
-    private String writer;
+    private String writer = "";
     @SerializedName("Actors")
     @Expose
-    private String actors;
+    private String actors = "";
     @SerializedName("Plot")
     @Expose
-    private String plot;
+    private String plot = "";
     @SerializedName("Language")
     @Expose
-    private String language;
+    private String language = "";
     @SerializedName("Country")
     @Expose
-    private String country;
+    private String country = "";
     @SerializedName("Awards")
     @Expose
-    private String awards;
+    private String awards = "";
     @SerializedName("Poster")
     @Expose
-    private String poster;
+    private String poster = "";
     @SerializedName("Metascore")
     @Expose
-    private String metascore;
+    private String metascore = "";
     @SerializedName("imdbRating")
     @Expose
-    private String imdbRating;
+    private String imdbRating = "";
     @SerializedName("imdbVotes")
     @Expose
-    private String imdbVotes;
+    private String imdbVotes = "";
     @SerializedName("imdbID")
     @Expose
-    private String imdbID;
+    private String imdbID = "";
     @SerializedName("Type")
     @Expose
-    private String type;
+    private String type = "";
     @SerializedName("totalSeasons")
     @Expose
-    private String totalSeasons;
+    private String totalSeasons = "";
     @SerializedName("Response")
     @Expose
-    private String response;
+    private String response = "";
 
     @Expose(serialize = false, deserialize = false)
     private byte[] imagePoster;
@@ -286,8 +286,10 @@ public class Movie extends RealmObject implements Serializable{
 
     public void setImagePoster(Bitmap bitmap){
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        this.imagePoster = stream.toByteArray();
+        if(bitmap!=null) {
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            this.imagePoster = stream.toByteArray();
+        }
 
     }
 
